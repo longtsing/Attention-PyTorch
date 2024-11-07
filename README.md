@@ -181,14 +181,14 @@ CBAM全称是Convolutional Block Attention Module, 是在ECCV2018上发表的注
 ```python
 
 class ChannelAttention(nn.Module):
-    def __init__(self, in_planes, rotio=16):
+    def __init__(self, in_planes, ratio=16):
         super(ChannelAttention, self).__init__()
         self.avg_pool = nn.AdaptiveAvgPool2d(1)
         self.max_pool = nn.AdaptiveMaxPool2d(1)
 
         self.sharedMLP = nn.Sequential(
             nn.Conv2d(in_planes, in_planes // ratio, 1, bias=False), nn.ReLU(),
-            nn.Conv2d(in_planes // rotio, in_planes, 1, bias=False))
+            nn.Conv2d(in_planes // ratio, in_planes, 1, bias=False))
         self.sigmoid = nn.Sigmoid()
 
     def forward(self, x):
